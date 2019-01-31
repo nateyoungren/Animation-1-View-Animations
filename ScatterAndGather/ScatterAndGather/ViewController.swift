@@ -49,19 +49,14 @@ class ViewController: UIViewController {
         view.addSubview(logo)
         
         let textStackView = UIStackView()
+        textStackView.propertiesForStack(axis: .horizontal, distribution: .equalSpacing, spacing: 0)
         view.addSubview(textStackView)
-        textStackView.axis = .horizontal
-        textStackView.distribution = .equalSpacing
-        textStackView.translatesAutoresizingMaskIntoConstraints = false
         
         textStackView.addSubViewsToStack(views: self.labels)
         
         let outerStackView = UIStackView()
+        outerStackView.propertiesForStack(axis: .vertical, distribution: .fill, spacing: 8)
         view.addSubview(outerStackView)
-        outerStackView.axis = .vertical
-        outerStackView.distribution = .fill
-        outerStackView.spacing = 8
-        outerStackView.translatesAutoresizingMaskIntoConstraints = false
         
         outerStackView.addArrangedSubview(textStackView)
         outerStackView.addArrangedSubview(logo)
@@ -81,13 +76,10 @@ class ViewController: UIViewController {
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.25, animations: {
                 self.logo.alpha = 1.0
             })
-            
             UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.25, animations: {
                 self.logo.alpha = 0.0
             })
-            
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1.00, animations: {
-                
                 
                 for label in self.labels {
                     var t = CGAffineTransform.identity
@@ -98,11 +90,8 @@ class ViewController: UIViewController {
                     
                     label.backgroundColor = UIColor(red: CGFloat.random(in: 1...255)/255, green: CGFloat.random(in: 1...255)/255, blue: CGFloat.random(in: 1...255)/255, alpha: CGFloat.random(in: 0...1))
                 }
-
             })
-            
         }, completion: nil)
-    
     }
     
     func gather() {
@@ -112,31 +101,19 @@ class ViewController: UIViewController {
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.25, animations: {
                 self.logo.alpha = 0.0
             })
-            
             UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.25, animations: {
                 self.logo.alpha = 1.0
             })
-            
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1.00, animations: {
                 
                 for label in self.labels {
                     label.transform = .identity
                     label.backgroundColor = UIColor(red: CGFloat.random(in: 1...255)/255, green: CGFloat.random(in: 1...255)/255, blue: CGFloat.random(in: 1...255)/255, alpha: 0)
                 }
-                
             })
-            
         }, completion: nil)
     }
-    
-    // Properties:
-    
-    let lLabel = UILabel()
-    let aLabel = UILabel()
-    let mLabel = UILabel()
-    let bLabel = UILabel()
-    let dLabel = UILabel()
-    let a2Label = UILabel()
+
     var logo = UIView()
     
     var labels: [UIView] = []
@@ -146,6 +123,12 @@ class ViewController: UIViewController {
 }
 
 extension UIStackView {
+    func propertiesForStack(axis: NSLayoutConstraint.Axis, distribution: UIStackView.Distribution, spacing: CGFloat) {
+        self.axis = axis
+        self.distribution = distribution
+        self.spacing = spacing
+        self.translatesAutoresizingMaskIntoConstraints = false
+    }
     func addSubViewsToStack(views: [UIView]) {
         for view in views {
             self.addArrangedSubview(view)
