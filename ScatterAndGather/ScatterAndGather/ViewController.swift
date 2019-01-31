@@ -59,7 +59,7 @@ class ViewController: UIViewController {
         let outerStackView = UIStackView()
         view.addSubview(outerStackView)
         outerStackView.axis = .vertical
-        outerStackView.distribution = .equalSpacing
+        outerStackView.distribution = .fill
         outerStackView.spacing = 8
         outerStackView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -70,6 +70,7 @@ class ViewController: UIViewController {
             outerStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
             outerStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30),
             outerStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+            logo.heightAnchor.constraint(equalTo: logo.widthAnchor, multiplier: 1.0/3.0)
             ])
     }
     
