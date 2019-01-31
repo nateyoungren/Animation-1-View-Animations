@@ -15,7 +15,6 @@ class ViewController: UIViewController {
         createViews()
     }
     
-    
     @IBAction func toggle(_ sender: UIBarButtonItem) {
         
         if shouldScramble {
@@ -27,43 +26,21 @@ class ViewController: UIViewController {
         }
     }
     
+    func labelMaker(letters: [String]) {
+        for letter in letters {
+            let newLabel = UILabel()
+            newLabel.text = "\(letter)"
+            newLabel.font = UIFont(name: "Avenir-Light", size: 30)
+            newLabel.sizeToFit()
+            newLabel.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(newLabel)
+            labels.append(newLabel)
+        }
+    }
+    
     func createViews() {
         
-        lLabel.text = "L"
-        lLabel.font = UIFont(name: "Avenir-Light", size: 30)
-        lLabel.sizeToFit()
-        lLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(lLabel)
-        
-        aLabel.text = "a"
-        aLabel.font = UIFont(name: "Avenir-Light", size: 30)
-        aLabel.sizeToFit()
-        aLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(aLabel)
-        
-        mLabel.text = "m"
-        mLabel.font = UIFont(name: "Avenir-Light", size: 30)
-        mLabel.sizeToFit()
-        mLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(mLabel)
-        
-        bLabel.text = "b"
-        bLabel.font = UIFont(name: "Avenir-Light", size: 30)
-        bLabel.sizeToFit()
-        bLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(bLabel)
-        
-        dLabel.text = "d"
-        dLabel.font = UIFont(name: "Avenir-Light", size: 30)
-        dLabel.sizeToFit()
-        dLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(dLabel)
-        
-        a2Label.text = "a"
-        a2Label.font = UIFont(name: "Avenir-Light", size: 30)
-        a2Label.sizeToFit()
-        a2Label.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(a2Label)
+        labelMaker(letters: ["L", "a", "m", "b", "d", "a"])
 
         let image = UIImage(named: "Lambda_Logo_Full")
         logo = UIImageView(image: image)
@@ -77,12 +54,7 @@ class ViewController: UIViewController {
         textStackView.distribution = .equalSpacing
         textStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        textStackView.addArrangedSubview(lLabel)
-        textStackView.addArrangedSubview(aLabel)
-        textStackView.addArrangedSubview(mLabel)
-        textStackView.addArrangedSubview(bLabel)
-        textStackView.addArrangedSubview(dLabel)
-        textStackView.addArrangedSubview(a2Label)
+        textStackView.addSubViewsToStack(views: self.labels)
         
         let outerStackView = UIStackView()
         view.addSubview(outerStackView)
@@ -114,39 +86,46 @@ class ViewController: UIViewController {
             })
             
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1.00, animations: {
-                self.lLabel.center = CGPoint(x: CGFloat.random(in: 50...300), y: CGFloat.random(in: 50...300))
-                self.lLabel.transform = CGAffineTransform(rotationAngle: CGFloat.pi/CGFloat.random(in: 1...8))
-                self.lLabel.backgroundColor = UIColor(red: CGFloat.random(in: 1...255)/255, green: CGFloat.random(in: 1...255)/255, blue: CGFloat.random(in: 1...255)/255, alpha: CGFloat.random(in: 1...255)/255)
                 
                 
-                self.aLabel.center = CGPoint(x: CGFloat.random(in: 50...300), y: CGFloat.random(in: 50...300))
-                self.aLabel.transform = CGAffineTransform(rotationAngle: CGFloat.pi/CGFloat.random(in: 1...8))
-                self.aLabel.backgroundColor = UIColor(red: CGFloat.random(in: 1...255)/255, green: CGFloat.random(in: 1...255)/255, blue: CGFloat.random(in: 1...255)/255, alpha: CGFloat.random(in: 1...255)/255)
-                
-                self.mLabel.center = CGPoint(x: CGFloat.random(in: 50...300), y: CGFloat.random(in: 50...300))
-                self.mLabel.transform = CGAffineTransform(rotationAngle: CGFloat.pi/CGFloat.random(in: 1...8))
-                self.mLabel.backgroundColor = UIColor(red: CGFloat.random(in: 1...255)/255, green: CGFloat.random(in: 1...255)/255, blue: CGFloat.random(in: 1...255)/255, alpha: CGFloat.random(in: 1...255)/255)
-                
-                self.bLabel.center = CGPoint(x: CGFloat.random(in: 50...300), y: CGFloat.random(in: 50...300))
-                self.bLabel.transform = CGAffineTransform(rotationAngle: CGFloat.pi/CGFloat.random(in: 1...8))
-                self.bLabel.backgroundColor = UIColor(red: CGFloat.random(in: 1...255)/255, green: CGFloat.random(in: 1...255)/255, blue: CGFloat.random(in: 1...255)/255, alpha: CGFloat.random(in: 1...255)/255)
-                
-                self.dLabel.center = CGPoint(x: CGFloat.random(in: 50...300), y: CGFloat.random(in: 50...300))
-                self.dLabel.transform = CGAffineTransform(rotationAngle: CGFloat.pi/CGFloat.random(in: 1...8))
-                self.dLabel.backgroundColor = UIColor(red: CGFloat.random(in: 1...255)/255, green: CGFloat.random(in: 1...255)/255, blue: CGFloat.random(in: 1...255)/255, alpha: CGFloat.random(in: 1...255)/255)
-                
-                self.a2Label.center = CGPoint(x: CGFloat.random(in: 50...300), y: CGFloat.random(in: 50...300))
-                self.a2Label.transform = CGAffineTransform(rotationAngle: CGFloat.pi/CGFloat.random(in: 1...8))
-                self.a2Label.backgroundColor = UIColor(red: CGFloat.random(in: 1...255)/255, green: CGFloat.random(in: 1...255)/255, blue: CGFloat.random(in: 1...255)/255, alpha: CGFloat.random(in: 1...255)/255)
+                for label in self.labels {
+                    var t = CGAffineTransform.identity
+                    t = t.translatedBy(x: CGFloat.random(in: -100...100), y: CGFloat.random(in: 50...400))
+                    t = t.rotated(by: CGFloat.pi/CGFloat.random(in: 1...3))
+                    
+                    label.transform = t
+                    
+                    label.backgroundColor = UIColor(red: CGFloat.random(in: 1...255)/255, green: CGFloat.random(in: 1...255)/255, blue: CGFloat.random(in: 1...255)/255, alpha: CGFloat.random(in: 0...1))
+                }
+
             })
             
         }, completion: nil)
-        
-        
+    
     }
     
     func gather() {
         
+        UIView.animateKeyframes(withDuration: 2.0, delay: 0, options: [], animations: {
+            
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.25, animations: {
+                self.logo.alpha = 0.0
+            })
+            
+            UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.25, animations: {
+                self.logo.alpha = 1.0
+            })
+            
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1.00, animations: {
+                
+                for label in self.labels {
+                    label.transform = .identity
+                    label.backgroundColor = UIColor(red: CGFloat.random(in: 1...255)/255, green: CGFloat.random(in: 1...255)/255, blue: CGFloat.random(in: 1...255)/255, alpha: 0)
+                }
+                
+            })
+            
+        }, completion: nil)
     }
     
     // Properties:
@@ -159,6 +138,16 @@ class ViewController: UIViewController {
     let a2Label = UILabel()
     var logo = UIView()
     
+    var labels: [UIView] = []
+    
     var shouldScramble = true
 
+}
+
+extension UIStackView {
+    func addSubViewsToStack(views: [UIView]) {
+        for view in views {
+            self.addArrangedSubview(view)
+        }
+    }
 }
