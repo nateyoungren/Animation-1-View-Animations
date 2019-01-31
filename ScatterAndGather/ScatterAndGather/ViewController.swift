@@ -55,7 +55,7 @@ class ViewController: UIViewController {
         textStackView.addSubViewsToStack(views: self.labels)
         
         let outerStackView = UIStackView()
-        outerStackView.propertiesForStack(axis: .vertical, distribution: .fill, spacing: 8)
+        outerStackView.propertiesForStack(axis: .vertical, distribution: .fill, spacing: 24)
         view.addSubview(outerStackView)
         
         outerStackView.addArrangedSubview(textStackView)
